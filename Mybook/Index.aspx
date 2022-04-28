@@ -14,7 +14,7 @@
                                    <div class="caption">
                                         <div class="col-md-offset-1 col-md-10">
                                              <h3>Inspira-te nestas palavras destinadas para ti</h3>
-                                             <h1>My Book</h1>
+                                             <h1>My Booke</h1>
                                              <a href="Mybook.aspx" class="section-btn btn btn-default smoothScroll">Vem aprender</a>
                                         </div>
                                    </div>
