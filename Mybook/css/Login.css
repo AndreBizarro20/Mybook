@@ -1,0 +1,180 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+
+*:focus {
+    outline: none;
+}
+
+.logologin {
+    width: 180px;
+    height: 110px;
+    margin-top: -9px;
+    margin-left: 100px;
+    padding: 10px;
+}
+.logoregisto {
+    width: 200px;
+    height: 110px;
+    margin-top: -20px;
+    padding: 10px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #ddd;
+    font-size: 16px;
+    color: #222;
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+}
+
+#login-box {
+    position: relative;
+    margin: 5% auto;
+    width: 550px;
+    height: 400px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 300px;
+    height: 400px;
+}
+
+h1 {
+    margin: 0 0 20px 0;
+    margin-left:auto;
+    font-weight: 300;
+    font-size: 28px;
+}
+
+input[type="text"],
+input[type="password"] {
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 4px;
+    border-bottom: 1px solid #aaa;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    transition: 0.2s ease;
+    border-left-style: none;
+    border-left-color: inherit;
+    border-left-width: medium;
+    border-right-style: none;
+    border-right-color: inherit;
+    border-right-width: medium;
+    border-top-style: none;
+    border-top-color: inherit;
+    border-top-width: medium;
+}
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-bottom: 2px solid #fe5823;
+        color: #000000;
+        transition: 0.2s ease;
+    }
+
+input[type="submit"] {
+    margin-top: 30px;
+    margin-left: 80px; 
+    width: 120px;
+    height: 32px;
+    background: #fe5823;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+}
+
+    input[type="submit"]:hover,
+    input[type="submit"]:focus {
+        background: #a0430c;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transition: 0.1s ease;
+    }
+
+    input[type="submit"]:active {
+        background: #a0430c;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        transition: 0.1s ease;
+    }
+
+.voltar {
+    margin-top: 30px;
+    margin-right: 60px;
+    width: 120px;
+    height: 32px;
+    background: #fe5823;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    text-align: center;
+    float: right;
+}
+
+.voltar:hover,
+ voltar:focus {
+        background: #a0430c;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        transition: 0.1s ease;
+    }
+
+.voltar:active {
+        background: #a0430c;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        transition: 0.1s ease;
+    }
+.or {
+    position: absolute;
+    top: 180px;
+    left: 280px;
+    width: 40px;
+    height: 40px;
+    background: #DDD;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    line-height: 40px;
+    text-align: center;
+}
+
+.right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 300px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 2px 2px 0;
+}
+
+    .right .loginwith {
+        display: block;
+        margin-bottom: 40px;
+        font-size: 28px;
+        color: #FFF;
+        text-align: center;
+    }
+
+
