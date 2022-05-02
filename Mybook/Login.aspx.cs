@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
@@ -32,7 +34,13 @@ namespace Mybook
             retorno.Direction = ParameterDirection.Output;
             retorno.SqlDbType = SqlDbType.Int;
             myCommand.Parameters.Add(retorno);
-            
+
+            SqlParameter retorno_genero = new SqlParameter();
+            retorno_genero.ParameterName = "@retorno_genero";
+            retorno_genero.Direction = ParameterDirection.Output;
+            retorno_genero.SqlDbType = SqlDbType.Int;
+            myCommand.Parameters.Add(retorno_genero);
+
             SqlParameter retorno_perfil = new SqlParameter();
             retorno_perfil.ParameterName = "@retorno_perfil";
             retorno_perfil.Direction = ParameterDirection.Output;
@@ -54,6 +62,7 @@ namespace Mybook
             int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
             string resposta = Convert.ToString (myCommand.Parameters["@retorno_nome"].Value);
             int respostaperfil = Convert.ToInt32(myCommand.Parameters["@retorno_perfil"].Value);
+            int respostagenero = Convert.ToInt32(myCommand.Parameters["@retorno_genero"].Value);
             myConn.Close();
 
             if (respostaRetorno == 1)
@@ -61,11 +70,17 @@ namespace Mybook
                 Session["id_perfil"] = respostaperfil;
                 Session["email"] = tb_email.Text;
                 Session["nome"] = resposta;
+                Session["id_genero"] = respostagenero;
                 Response.Redirect("Index.aspx");
+            }else if (respostaRetorno == 2)
+            {
+                lbl_mensagem.Text = "*Conta inativa \n Por favor verifique o seu email*";
+                enviaMail();
             }
             else
             {
                 lbl_mensagem.Text = "*Credenciais Incorretas*";
+               
             }
             if(tb_email.Text == null || tb_password.Text == null)
             {
@@ -143,6 +158,30 @@ namespace Mybook
             enc = enc.Replace("/", "JjJjJ");
             enc = enc.Replace("\\", "IiIiI");
             return enc;
+        }
+
+
+        private void enviaMail()
+        {
+
+
+            MailMessage mail = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+
+            mail.From = new MailAddress("Testesbizarro@gmail.com");
+            mail.To.Add(new MailAddress(tb_email.Text));
+            mail.Subject = "Ativação de conta!";
+            mail.IsBodyHtml = true;
+
+
+            mail.Body = "<center><br/><br/>< img url='https://t.ctcdn.com.br/5XPASDBUosgmBv5Ptpxcd6eTJso=/512x288/smart/filters:format(webp)/i257652.jpeg'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");
+
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
+
         }
     }
 }

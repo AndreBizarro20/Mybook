@@ -28,6 +28,8 @@ namespace Mybook
             lbl_info.Visible = false;
         }
 
+
+
         protected void RepeaterPerfil_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item)
@@ -48,13 +50,19 @@ namespace Mybook
                 ((Button)e.Item.FindControl("btn_update")).CommandArgument = dr["id_pessoa"].ToString();
                 ((Button)e.Item.FindControl("btn_alterar")).CommandArgument = dr["id_pessoa"].ToString();
 
-               /* if (dr["id_genero"].ToString() == "1")
+                if (dr["id_genero"].ToString() == "1")
                 {
-                    ((Image)e.Item.FindControl("img_peca")).ImageUrl = $"data:.jpg;base64,/images/maleiconuser.png";
+                    ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/male.png";
 
+                } else if (dr["id_genero"].ToString() == "2")
+                {
+                    ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/female.png";
+                } else
+                {
+                    ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/outro.jpeg";
                 }
 
-                */
+               
 
 
             }
@@ -187,6 +195,11 @@ namespace Mybook
             enc = enc.Replace("/", "JjJjJ");
             enc = enc.Replace("\\", "IiIiI");
             return enc;
+        }
+
+        protected void btn_alterar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

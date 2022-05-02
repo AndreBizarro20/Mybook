@@ -1,7 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="My_book.aspx.cs" Inherits="Mybook.My_book" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+  
+
+
+
 
 
      <section id="team" data-stellar-background-ratio="1">
@@ -15,6 +22,9 @@
                             
                              
                              
+
+
+
                              <!--
                              <asp:Panel ID="panel_texto" runat="server">
                                  <asp:TextBox ID="tb_titulo" runat="server" placeholder="Titulo" Font-Size="Larger"></asp:TextBox>
@@ -175,4 +185,7 @@
           </div>
      </section>
 
+ 
+
+   
 </asp:Content>

@@ -47,6 +47,8 @@
     border: solid 1px #BA68C8
 }
     </style>
+
+ 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!--== End Page Header Area ==-->
@@ -70,12 +72,12 @@
         
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><asp:Image ID="img_peca" runat="server" class="rounded-circle mt-5" width="150px" ImageURL="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/><br /><span class="font-weight-bold"><asp:Label ID="txt_utilizador" runat="server" ></asp:Label></span><span class="text-black-50"></span><span> </span></div>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><asp:Image ID="img_peca" runat="server" class="rounded-circle mt-5" width="150px"/><br /><span class="font-weight-bold"><asp:Label ID="txt_utilizador" runat="server" ></asp:Label></span><span class="text-black-50"></span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Perfil <asp:Label ID="lbl_perfil" runat="server" Text=""></asp:Label></h4>
+                    <h4 class="text-center">Perfil <asp:Label ID="lbl_perfil" runat="server" Text=""></asp:Label></h4>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6"><label class="labels">Nome</label>
@@ -91,19 +93,22 @@
                     <div class="col-md-6"><label class="labels">Genero</label><asp:DropDownList ID="txt_genero" class="form-control" runat="server" DataSourceID="SqlDataSource3" DataTextField="genero" DataValueField="id_genero"></asp:DropDownList></div>
                     <div class="col-md-6"><label class="labels">Cidade</label> <asp:DropDownList ID="txt_cidade" class="form-control" runat="server" DataSourceID="SqlDataSource2" DataTextField="cidade" DataValueField="id_cidade"></asp:DropDownList></div>
                 </div>
-                <br /><div class="mt-5 text-center"><asp:Button ID="btn_update" class="btn btn-bordered" runat="server" Text="Update" CommandName="btn_update" /></div>
+                <br /><div class="mt-5 text-center"><asp:Button ID="btn_update" class="btn btn-bordered" runat="server" Text="Update" CommandName="btn_update" />
+                     <asp:Button ID="btn_alterar" class="btn btn-bordered" runat="server" Text="Alterar palavra-passe" CommandName="btn_alterar"/>
+
+                      </div>
                  
             </div>
+
         </div>
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center experience"><span><h4 class="text-right">Mudar Palavra-passe</h4></span></div><br>
-                <div class="col-md-12"><label class="labels">Nova palavra-passe</label> <asp:TextBox ID="txt_pw" class="form-control" placeholder="Palavra-passe" runat="server" TextMode="Password" Text="*"></asp:TextBox></div> <br>
-                <div class="col-md-12"><label class="labels">Confirme palavra-passe</label><asp:TextBox ID="txt_pw2" class="form-control" placeholder=" Confirme Palavra-passe" runat="server" TextMode="Password" Text="*"></asp:TextBox></div>
+                <div class="col-md-12"><label class="labels">Nova palavra-passe</label> <asp:TextBox ID="txt_pw" class="form-control" placeholder="Palavra-passe" runat="server" TextMode="Password" Text="*"></asp:TextBox></div>
                 <br />
-                <div class="mt-5 text-center"><asp:Button ID="btn_alterar" class="btn btn-bordered" runat="server" Text="Alterar" CommandName="btn_alterar"/></div>
+                <div class="col-md-12"><label class="labels">Confirme palavra-passe</label><asp:TextBox ID="txt_pw2" class="form-control" placeholder=" Confirme Palavra-passe" runat="server" TextMode="Password" Text="*"></asp:TextBox></div>
             </div>
-        </div>
+        </div>-->
     </div>
                  
 </div>

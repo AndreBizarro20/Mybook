@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
@@ -49,12 +51,16 @@ namespace Mybook
 
             if (respostaRetorno == 1)
             {
-                lbl_mensagem.Text = "Conta criada com sucesso";
+                lbl_mensagem.Text = "Conta criada com sucesso, por favor verefique o seu email para ativar a sua conta";
+
+                enviaMail(tb_email.Text);
             }
             else
             {
 
                 lbl_mensagem.Text = "Este email já está registado";
+                tb_email.Text = "";
+                tb_email.Focus();
             }
             
 
@@ -123,6 +129,29 @@ namespace Mybook
             enc = enc.Replace("/", "JjJjJ");
             enc = enc.Replace("\\", "IiIiI");
             return enc;
+        }
+
+        private void enviaMail(string email_destinatario)
+        {
+
+
+            MailMessage mail = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+
+            mail.From = new MailAddress("geral@mybook.com");
+            mail.To.Add(new MailAddress(email_destinatario));
+            mail.Subject = "Ativação de conta!";
+            mail.IsBodyHtml = true;
+           
+
+            mail.Body = "<center><br/><br/>< img url='https://localhost:44390/images/certo.png'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");
+
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
+
         }
     }
 }
