@@ -144,7 +144,7 @@ namespace Mybook
             mail.IsBodyHtml = true;
            
 
-            mail.Body = "<center><br/><br/>< img url='https://localhost:44390/images/certo.png'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
+            mail.Body = "<center><br/><br/><img src='https://localhost:44390/images/logo%20icon.png'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");

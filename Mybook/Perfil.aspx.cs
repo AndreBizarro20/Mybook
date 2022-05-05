@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Security.Cryptography;
 using System.Web.UI.WebControls;
 
@@ -26,6 +25,8 @@ namespace Mybook
             }
 
             lbl_info.Visible = false;
+
+
         }
 
 
@@ -44,7 +45,7 @@ namespace Mybook
                 ((TextBox)e.Item.FindControl("txt_apelido")).Text = dr["apelido"].ToString();
                 ((TextBox)e.Item.FindControl("txt_email")).Text = dr["email"].ToString();
 
-                ((Label)e.Item.FindControl("lbl_perfil")).Text= dr["perfil"].ToString();
+                ((Label)e.Item.FindControl("lbl_perfil")).Text = dr["perfil"].ToString();
                 ((DropDownList)e.Item.FindControl("txt_cidade")).SelectedValue = dr["id_cidade"].ToString();
                 ((DropDownList)e.Item.FindControl("txt_genero")).SelectedValue = dr["id_genero"].ToString();
                 ((Button)e.Item.FindControl("btn_update")).CommandArgument = dr["id_pessoa"].ToString();
@@ -54,15 +55,17 @@ namespace Mybook
                 {
                     ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/male.png";
 
-                } else if (dr["id_genero"].ToString() == "2")
+                }
+                else if (dr["id_genero"].ToString() == "2")
                 {
                     ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/female.png";
-                } else
+                }
+                else
                 {
                     ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/outro.jpeg";
                 }
 
-               
+                
 
 
             }
@@ -73,7 +76,8 @@ namespace Mybook
         {
             if (e.CommandName == "btn_update")
             {
-
+                ((Label)e.Item.FindControl("lbl_info")).Text = null;
+                ((Label)e.Item.FindControl("lbl_info")).Visible = false;
                 try
                 {
                     SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
@@ -84,7 +88,6 @@ namespace Mybook
                     myCommand.Parameters.AddWithValue("@nome", ((TextBox)e.Item.FindControl("txt_nome")).Text);
                     myCommand.Parameters.AddWithValue("@apelido", ((TextBox)e.Item.FindControl("txt_apelido")).Text);
                     myCommand.Parameters.AddWithValue("@email", ((TextBox)e.Item.FindControl("txt_email")).Text);
-                   // myCommand.Parameters.AddWithValue("@ativo", ((DropDownList)e.Item.FindControl("txt_ativo")).SelectedValue);
                     myCommand.Parameters.AddWithValue("@id_genero", ((DropDownList)e.Item.FindControl("txt_genero")).SelectedValue);
                     myCommand.Parameters.AddWithValue("@id_cidade", ((DropDownList)e.Item.FindControl("txt_cidade")).SelectedValue);
 
@@ -99,6 +102,7 @@ namespace Mybook
 
                     lbl_info.Visible = true;
                     lbl_info.Text = "Perfil alterado com sucesso!";
+
                 }
                 catch (Exception)
                 {
@@ -107,9 +111,25 @@ namespace Mybook
 
 
             }
+
             if (e.CommandName == "btn_alterar")
             {
-                if (((TextBox)e.Item.FindControl("txt_pw")).Text == ((TextBox)e.Item.FindControl("txt_pw2")).Text && ((TextBox)e.Item.FindControl("txt_pw")).Text != null)
+
+
+
+                if (((TextBox)e.Item.FindControl("txt_pw2")).Text == "")
+                {
+                    lbl_info.Visible = true;
+                    lbl_info.Attributes.Add("class", "alert alert-danger");
+                    lbl_info.Text = $"Insira uma nova palavra-passe";
+                    /* ((Label)e.Item.FindControl("lbl_info")).Visible = true;
+                     ((Label)e.Item.FindControl("lbl_info")).Attributes.Add("class", "alert alert-danger");
+                     ((Label)e.Item.FindControl("lbl_info")).Text = "Insira uma nova palavra - passe";*/
+
+
+
+                }
+                else if (((TextBox)e.Item.FindControl("txt_pw")).Text != null && ((TextBox)e.Item.FindControl("txt_pw2")).Text != null)
                 {
                     SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
 
@@ -118,7 +138,13 @@ namespace Mybook
 
                     myCommand.Parameters.AddWithValue("@id_pessoa", ((Button)e.Item.FindControl("btn_alterar")).CommandArgument);
                     myCommand.Parameters.AddWithValue("@pass", EncryptString(((TextBox)e.Item.FindControl("txt_pw")).Text));
+                    myCommand.Parameters.AddWithValue("@nova_pass", EncryptString(((TextBox)e.Item.FindControl("txt_pw2")).Text));
 
+                    SqlParameter retorno = new SqlParameter();
+                    retorno.ParameterName = "@retorno";
+                    retorno.Direction = ParameterDirection.Output;
+                    retorno.SqlDbType = SqlDbType.Int;
+                    myCommand.Parameters.Add(retorno);
 
                     myCommand.CommandType = CommandType.StoredProcedure;
                     myCommand.CommandText = "atualizar_pw";
@@ -127,13 +153,40 @@ namespace Mybook
                     myConn.Open();
                     myCommand.ExecuteNonQuery();
 
+                    int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
+
                     myConn.Close();
 
                     lbl_info.Visible = true;
-                    lbl_info.Text = "Palavra-passe alterada com sucesso!";
+                    /*((Label)e.Item.FindControl("lbl_info")).Visible = true;*/
+
+                    if (respostaRetorno == 1)
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-success");
+                        lbl_info.Text = "Palavra-passe alterada com sucesso!";
+
+                        /* ((Label)e.Item.FindControl("lbl_info")).Attributes.Add("class", "alert alert-success");
+                         ((Label)e.Item.FindControl("lbl_info")).Text = "Palavra-passe alterada com sucesso!";*/
+                    }
+                    else if (respostaRetorno == 2)
+                    {
+
+                        lbl_info.Attributes.Add("class", "alert alert-warning");
+                        lbl_info.Text = $"A palavra-passe atual não coincide...";
+                        /* ((Label)e.Item.FindControl("lbl_info")).Attributes.Add("class", "alert alert-warning");
+                         ((Label)e.Item.FindControl("lbl_info")).Text = "A palavra-passe atual não coincide...";*/
+                    }
+                    else if (respostaRetorno == 3)
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-danger");
+                        lbl_info.Text = $"A palavra-passe atual e a nova não podem ser iguais";
+                        /* ((Label)e.Item.FindControl("lbl_info")).Attributes.Add("class", "alert alert-danger");
+                         ((Label)e.Item.FindControl("lbl_info")).Text = "A palavra-passe atual e a nova não podem ser iguais";*/
+                    }
                 }
 
             }
+
         }
         public static string EncryptString(string Message)
         {

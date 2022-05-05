@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="Mybook.MasterPage" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" Debug="true" CodeBehind="MasterPage.master.cs" Inherits="Mybook.MasterPage" %>
 
 <!DOCTYPE html>
 
@@ -6,15 +6,13 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-
-    </asp:ContentPlaceHolder>
-         <meta charset="UTF-8">
+     <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
      <meta name="keywords" content="">
      <meta name="author" content="Tooplate">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -24,6 +22,10 @@
 
      <!-- MAIN CSS -->
      <link rel="stylesheet" href="css/tooplate-style.css">
+
+    <!-- Head das outras paginas -->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">

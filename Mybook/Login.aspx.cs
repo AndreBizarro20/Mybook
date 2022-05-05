@@ -35,11 +35,11 @@ namespace Mybook
             retorno.SqlDbType = SqlDbType.Int;
             myCommand.Parameters.Add(retorno);
 
-            SqlParameter retorno_genero = new SqlParameter();
-            retorno_genero.ParameterName = "@retorno_genero";
-            retorno_genero.Direction = ParameterDirection.Output;
-            retorno_genero.SqlDbType = SqlDbType.Int;
-            myCommand.Parameters.Add(retorno_genero);
+            SqlParameter retorno_pessoa = new SqlParameter();
+            retorno_pessoa.ParameterName = "@retorno_pessoa";
+            retorno_pessoa.Direction = ParameterDirection.Output;
+            retorno_pessoa.SqlDbType = SqlDbType.Int;
+            myCommand.Parameters.Add(retorno_pessoa);
 
             SqlParameter retorno_perfil = new SqlParameter();
             retorno_perfil.ParameterName = "@retorno_perfil";
@@ -62,7 +62,8 @@ namespace Mybook
             int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
             string resposta = Convert.ToString (myCommand.Parameters["@retorno_nome"].Value);
             int respostaperfil = Convert.ToInt32(myCommand.Parameters["@retorno_perfil"].Value);
-            int respostagenero = Convert.ToInt32(myCommand.Parameters["@retorno_genero"].Value);
+            int respostapessoa = Convert.ToInt32(myCommand.Parameters["@retorno_pessoa"].Value);
+            //int respostagenero = Convert.ToInt32(myCommand.Parameters["@retorno_genero"].Value);
             myConn.Close();
 
             if (respostaRetorno == 1)
@@ -70,7 +71,8 @@ namespace Mybook
                 Session["id_perfil"] = respostaperfil;
                 Session["email"] = tb_email.Text;
                 Session["nome"] = resposta;
-                Session["id_genero"] = respostagenero;
+                Session["id_pessoa"] = respostapessoa;
+               // Session["id_genero"] = respostagenero;
                 Response.Redirect("Index.aspx");
             }else if (respostaRetorno == 2)
             {
@@ -174,7 +176,7 @@ namespace Mybook
             mail.IsBodyHtml = true;
 
 
-            mail.Body = "<center><br/><br/>< img url='https://t.ctcdn.com.br/5XPASDBUosgmBv5Ptpxcd6eTJso=/512x288/smart/filters:format(webp)/i257652.jpeg'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
+            mail.Body = "<center><br/><br/><img src='https://localhost:44390/images/logo%20icon.png'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");

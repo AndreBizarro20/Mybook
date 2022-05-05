@@ -24,66 +24,102 @@ namespace Mybook
         protected global::System.Web.UI.ScriptManager ToolkitScriptManager1;
 
         /// <summary>
-        /// Controle btn_criartexto.
+        /// Controle teste1.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_criartexto;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl teste1;
 
         /// <summary>
-        /// Controle panel_texto.
+        /// Controle dpr_genero.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panel_texto;
+        protected global::System.Web.UI.WebControls.DropDownList dpr_genero;
 
         /// <summary>
-        /// Controle tb_titulo.
+        /// Controle FileUpload1.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_titulo;
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
 
         /// <summary>
-        /// Controle tb_resumo.
+        /// Controle txt_titulo.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_resumo;
+        protected global::System.Web.UI.WebControls.TextBox txt_titulo;
 
         /// <summary>
-        /// Controle tb_texto.
+        /// Controle txt_resumo.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_texto;
+        protected global::System.Web.UI.WebControls.TextBox txt_resumo;
 
         /// <summary>
-        /// Controle btn_avançar.
+        /// Controle txt_texto.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_avançar;
+        protected global::System.Web.UI.WebControls.TextBox txt_texto;
 
         /// <summary>
-        /// Controle ModalPopupextender1.
+        /// Controle btn_adicionar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModalPopupextender1;
+        protected global::System.Web.UI.WebControls.Button btn_adicionar;
+
+        /// <summary>
+        /// Controle lbl_mensagem.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl_mensagem;
+
+        /// <summary>
+        /// Controle Repeater1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater Repeater1;
+
+        /// <summary>
+        /// Controle SqlDataSource2.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
+
+        /// <summary>
+        /// Controle SqlDataSource1.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Para modificar, mova a declaração de campo do arquivo de designer a um arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }
