@@ -14,6 +14,7 @@
     transition: transform 0.1s ease-in;
     transform: translateX(0);
     }
+  
 
     .btn1:hover 
     {
@@ -77,7 +78,7 @@
                     </div>
                     <div class="mb-3">
                     <label for="message-text" class="col-form-label">Resumo</label>
-                      <asp:TextBox ID="txt_resumo" class="form-control" runat="server" TextMode="MultiLine" Rows="5" style = "resize:none"></asp:TextBox>
+                      <asp:TextBox ID="txt_resumo" class="form-control" runat="server" MaxLength="200" TextMode="MultiLine" Rows="5" style = "resize:none"></asp:TextBox>
                     </div>
                      <div class="mb-3">
                     <label for="message-text" class="col-form-label">Texto</label>
@@ -124,7 +125,7 @@
                    <asp:Label ID="lbl_mensagem" runat="server"  class="" role="alert" Text="" Visible="False"></asp:Label>  
 
 
-                   <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSource2" runat="server">
+                   <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSource2" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
                        <HeaderTemplate>
                            <section id="team" data-stellar-background-ratio="1">
 
@@ -135,26 +136,70 @@
                             <div class="col-md-4 col-sm-6">
   <div class="card">
     <div class="card__header">
-      <img src="https://source.unsplash.com/600x400/?computer" alt="card__image" class="card__image" width="600">
+        <asp:Image ID="img_texto" runat="server" alt="card__image" class="card__image" width="300"  Height="100"/>
     </div>
     <div class="card__body">
-      <span class="tag tag-blue">Technology</span>
-      <h4>What's new in 2022 Tech</h4>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p>
+      <span id="id_cliente" class="tag tag-red" runat="server">
+          <asp:Label ID="lbl_genero" runat="server" Text=""></asp:Label></span>
+      <h4>
+          <asp:Label ID="lbl_titulo" runat="server" Text=""></asp:Label></h4>
+      <p>
+          <asp:Label ID="lbl_resumo" runat="server" Text="" Height="300"></asp:Label></p>
     </div>
+      <br />
+      <br />
     <div class="card__footer">
       <div class="user">
-        <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
+        <img src="images/icon_pessoa.png" width="20" height="20" alt="user__image" class="user__image">
         <div class="user__info">
-          <h5>Jane Doe</h5>
-          <small>2h ago</small>
+          <h5>
+              <asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label></h5>
+          <small>
+              <asp:Label ID="lbl_data" runat="server" Text=""></asp:Label></small>
         </div>
       </div>
     </div>
   </div>
                        </div>
-                           <br />
+                          
                        </ItemTemplate>
+
+
+
+                       <AlternatingItemTemplate>
+                             <div class="col-md-4 col-sm-6">
+  <div class="card">
+    <div class="card__header">
+        <asp:Image ID="img_texto" runat="server" alt="card__image" class="card__image" width="300"  Height="100"/>
+    </div>
+    <div class="card__body">
+      <span id="id_cliente" class="tag tag-red" runat="server">
+          <asp:Label ID="lbl_genero" runat="server" Text=""></asp:Label></span>
+      <h4>
+          <asp:Label ID="lbl_titulo" runat="server" Text=""></asp:Label></h4>
+      <p>
+          <asp:Label ID="lbl_resumo" runat="server" Text="" Height="300"></asp:Label></p>
+    </div>
+      <br />
+      <br />
+    <div class="card__footer">
+      <div class="user">
+        <img src="images/icon_pessoa.png" width="20" height="20" alt="user__image" class="user__image">
+        <div class="user__info">
+          <h5>
+              <asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label></h5>
+          <small>
+              <asp:Label ID="lbl_data" runat="server" Text=""></asp:Label></small>
+        </div>
+      </div>
+    </div>
+  </div>
+                       </div>
+                          
+                          
+                       </AlternatingItemTemplate>
+
+
                        <FooterTemplate>
                            </div>
                         </div>
@@ -163,62 +208,8 @@
                    </asp:Repeater>
 
 
-                   <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [tab_texto] where id_pessoa='1'"></asp:SqlDataSource>
+                   <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT tab_texto.id_texto, tab_texto.id_pessoa, tab_pessoa.nome, tab_texto.titulo, tab_texto.resumo, tab_generos_livro.generos_livro, tab_texto.binarios, tab_texto.data FROM     tab_generos_livro INNER JOIN tab_texto ON tab_generos_livro.id_generos_livro = tab_texto.id_generos_livro INNER JOIN tab_pessoa ON tab_texto.id_pessoa = tab_pessoa.id_pessoa where tab_texto.id_pessoa='1'"></asp:SqlDataSource>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                   <div class="container">
-                    <div class="col-md-4 col-sm-6">
-
-
-
-
-
-
-
-
-
-                        
-  <div class="card">
-    <div class="card__body">
-      <h3>TITULO</h3>
-      <span class="tag tag-red">Género</span>
-        <p>Resumo 
-    </div>
-    <div class="card__footer">
-      <div class="user">
-
-
-           
-        <div class="user__info">
-                      <img src="images/icon_pessoa.png" Height="40" width="40" />
-          <small>Autor</small>
-                      <img src="images/abrir_texto.png"  Height="40" width="40" />
-          <small>Ler mais...</small>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br /><br />
-</div>
-
-
-
-
-                    </div>
               </div>
           </div>
 

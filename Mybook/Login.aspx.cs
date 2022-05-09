@@ -65,29 +65,41 @@ namespace Mybook
             int respostapessoa = Convert.ToInt32(myCommand.Parameters["@retorno_pessoa"].Value);
             //int respostagenero = Convert.ToInt32(myCommand.Parameters["@retorno_genero"].Value);
             myConn.Close();
-
-            if (respostaRetorno == 1)
+            lbl_info.Visible = true;
+            // ((Label)e.Item.FindControl("lbl_info")).Visible = true;
+            if (tb_email.Text == "" || tb_password.Text == "")
             {
-                Session["id_perfil"] = respostaperfil;
-                Session["email"] = tb_email.Text;
-                Session["nome"] = resposta;
-                Session["id_pessoa"] = respostapessoa;
-               // Session["id_genero"] = respostagenero;
-                Response.Redirect("Index.aspx");
-            }else if (respostaRetorno == 2)
-            {
-                lbl_mensagem.Text = "*Conta inativa \n Por favor verifique o seu email*";
-                enviaMail();
+                lbl_info.Attributes.Add("class", "alert alert-danger");
+                lbl_info.Text = $"Insira os campos";
+                
             }
             else
             {
-                lbl_mensagem.Text = "*Credenciais Incorretas*";
-               
+                if (respostaRetorno == 1)
+                {
+                    Session["id_perfil"] = respostaperfil;
+                    Session["email"] = tb_email.Text;
+                    Session["nome"] = resposta;
+                    Session["id_pessoa"] = respostapessoa;
+                    // Session["id_genero"] = respostagenero;
+                    Response.Redirect("Index.aspx");
+                }
+                else if (respostaRetorno == 2)
+                {
+                    lbl_info.Visible = true;
+                    lbl_info.Attributes.Add("class", "alert alert-warning");
+                    lbl_info.Text = $"Conta inativa \n Por favor verifique o seu email";
+                    enviaMail();
+                }
+                else
+                {
+                    lbl_info.Attributes.Add("class", "alert alert-danger");
+                    lbl_info.Text = $"Credenciais Incorretas";
+
+                }
             }
-            if(tb_email.Text == null || tb_password.Text == null)
-            {
-                lbl_mensagem.Text = null;
-            }
+
+
         }
 
         protected void vtn_voltar_Click(object sender, EventArgs e)

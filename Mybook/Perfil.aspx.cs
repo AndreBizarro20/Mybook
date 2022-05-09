@@ -158,7 +158,7 @@ namespace Mybook
                     myConn.Close();
 
                     lbl_info.Visible = true;
-                    /*((Label)e.Item.FindControl("lbl_info")).Visible = true;*/
+                   // ((Label)e.Item.FindControl("lbl_info")).Visible = true;
 
                     if (respostaRetorno == 1)
                     {

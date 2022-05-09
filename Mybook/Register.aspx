@@ -6,6 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/Register.css">
 </head>
 <body>
@@ -41,7 +42,7 @@
            <img src="images/logo icon.png" class="logoregisto"/>
            </a>
           <asp:TextBox ID="TextBox2" placeholder="Genero" runat="server" Enabled="false"></asp:TextBox>
-          <asp:RadioButtonList ID="RadioButtonList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="genero" DataValueField="id_genero"></asp:RadioButtonList><asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*GENERO OBRIGATORIO*" ControlToValidate="RadioButtonList1" ForeColor="Red">*</asp:RequiredFieldValidator>
+          <asp:RadioButtonList ID="RadioButtonList1" runat="server" DataSourceID="SqlDataSource1" DataTextField="genero" DataValueField="id_genero" Font-Bold="False"></asp:RadioButtonList><asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="*GENERO OBRIGATORIO*" ControlToValidate="RadioButtonList1" ForeColor="Red">*</asp:RequiredFieldValidator>
           <asp:TextBox ID="TextBox3" placeholder="Distrito" runat="server" Enabled="false"></asp:TextBox><asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SqlDataSource2" DataTextField="cidade" DataValueField="id_cidade"></asp:DropDownList><asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="*CAMPO OBRIGATORIO*" ControlToValidate="DropDownList1" ForeColor="Red"></asp:RequiredFieldValidator>
           <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Mybook %>" SelectCommand="SELECT * FROM [tab_cidade]"></asp:SqlDataSource>
       </div>
@@ -52,10 +53,10 @@
 
 </div>
         <div style="margin-left:44%">
-        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red"/>
+        <asp:ValidationSummary ID="ValidationSummary1" Width="300px" class="alert alert-danger" role="alert" runat="server" ForeColor="Red"/>
         </div>
         <div style="margin-left:44%">
-            <asp:Label ID="lbl_mensagem" runat="server" Text="" ForeColor="Red"></asp:Label>
+            <asp:Label ID="lbl_mensagem" runat="server"  class="alert alert-danger" role="alert" Text="" ForeColor="Red"></asp:Label>
         </div>
     </form>
 </body>
