@@ -135,7 +135,18 @@ namespace Mybook
                 byte[] binaryData = (byte[])dr["binarios"];
                 string image_string = Convert.ToBase64String(binaryData);
                 ((Image)e.Item.FindControl("img_texto")).ImageUrl = String.Format($"data:image/.jpg;base64,{image_string}");
+                ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument = dr["id_pessoa"].ToString();;
 
+            }
+        }
+
+        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "btn_verPerfil")
+            {
+                Session["ver_perfil"] = ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument;
+                
+                Response.Redirect("Ver_perfil.aspx");
             }
         }
     }

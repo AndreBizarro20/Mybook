@@ -578,8 +578,13 @@
     <Content Include="images\Bizarro.jpeg" />
     <Content Include="images\certo.png" />
     <Content Include="images\duvidas.jpg" />
+    <Content Include="images\editar.png" />
+    <Content Include="images\eliminar.png" />
     <Content Include="images\favicon.ico" />
+    <Content Include="images\Favorite_25px.png" />
+    <Content Include="images\Favorite_black_25px.png" />
     <Content Include="images\female.png" />
+    <Content Include="images\icon, olho.png" />
     <Content Include="images\icon_pessoa.png" />
     <Content Include="images\livro.jpg" />
     <Content Include="images\logo %282%29.png" />
@@ -601,6 +606,7 @@
     <Content Include="My_book.aspx" />
     <Content Include="Perfil.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Ver_perfil.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -660,6 +666,13 @@
     </Compile>
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Ver_perfil.aspx.cs">
+      <DependentUpon>Ver_perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Ver_perfil.aspx.designer.cs">
+      <DependentUpon>Ver_perfil.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
