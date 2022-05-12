@@ -19,6 +19,7 @@ namespace Mybook
                 lbl_nome.Visible = false;
                 lbl_nome.Enabled= false;
                 nome_perfil.Attributes.Add("style", "display: none");
+                favorito.Attributes.Add("style", "display: none");
             }
             if (Session["email"] != null)
             {
@@ -28,6 +29,7 @@ namespace Mybook
                 lbl_nome.Enabled = true;
                 lbl_nome.Text = Session["nome"].ToString();
                 nome_perfil.Attributes.Add("style", "display: block");
+                favorito.Attributes.Add("style", "display: block");
 
             }
         }

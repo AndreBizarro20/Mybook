@@ -123,6 +123,9 @@
                         </p></div>
                    <br />
                    <asp:Label ID="lbl_mensagem" runat="server"  class="" role="alert" Text="" Visible="False"></asp:Label>  
+                           <div>
+                                 <asp:Label ID="lbl_info" runat="server" role="alert" Text="" Visible="False"></asp:Label>  
+                           </div>
 
 
                    <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSource2" runat="server" OnItemDataBound="Repeater1_ItemDataBound" OnItemCommand="Repeater1_ItemCommand">
@@ -149,16 +152,16 @@
       <br />
       <br />
     <div class="card__footer">
+        
       <div class="user">
-        <img src="images/icon_pessoa.png" width="20" height="20" alt="user__image" class="user__image"><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label>&nbsp;<asp:ImageButton ID="btn_verPerfil" runat="server" img src="images/icon,%20olho.png" commandName="btn_verPerfil" Width="20px" Height="20px"/></h5>
-
-        <div class="user__info">
-            <asp:ImageButton ID="btn_texto" runat="server" img src="images/abrir_texto.png" Width="25px" Height="25px"/>
-          <small>
-              <br />
-              <asp:Label ID="lbl_data" runat="server" Text=""></asp:Label></small>
-        </div>
-      </div>
+                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/></h5>
+       </div>       
+         </div>
+        <div class="card__footer">
+             <div class="user">
+                <small><asp:Label ID="lbl_data" runat="server" Text=""></asp:Label></small>
+             </div>
+       
     </div>
   </div>
                        </div>
@@ -187,12 +190,8 @@
     <div class="card__footer">
         
       <div class="user">
-        <img src="images/icon_pessoa.png" width="20" height="20" alt="user__image" class="user__image"><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label>
-       </div>
-         <div class="user__info">
-        &nbsp;<asp:ImageButton ID="btn_verPerfil" runat="server" img src="images/icon,%20olho.png" commandName="btn_verPerfil" Width="20px" Height="20px"/><asp:ImageButton ID="btn_texto" runat="server" img src="images/abrir_texto.png" Width="25px" Height="25px"/></h5>
-              <asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px"/>
-       </div>
+                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/></h5>
+       </div>       
          </div>
         <div class="card__footer">
              <div class="user">

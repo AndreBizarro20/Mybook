@@ -177,8 +177,10 @@
     
    </div>
 
-
-      <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSource1" runat="server" OnitemDataBound="Repeater1_ItemDataBound">
+                               <div>
+                                 <asp:Label ID="Label1" runat="server" role="alert" Text="" Visible="False"></asp:Label>  
+                           </div>
+      <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSource1" runat="server" OnItemCommand="Repeater1_ItemCommand" OnitemDataBound="Repeater1_ItemDataBound">
                       <HeaderTemplate>
                            <section id="team" data-stellar-background-ratio="1">
 
@@ -203,7 +205,7 @@
       <br />
     <div class="card__footer">
       <div class="user">
-            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/abrir_texto.png" Width="25px" Height="25px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="25px" Height="25px"/>
+            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
 
         <div class="user__info">
           <small>
@@ -237,7 +239,8 @@
       <br />
     <div class="card__footer">
       <div class="user">
-            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/abrir_texto.png" Width="25px" Height="25px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="25px" Height="25px"/>
+            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
+
         <div class="user__info">
           <small>
               <br />

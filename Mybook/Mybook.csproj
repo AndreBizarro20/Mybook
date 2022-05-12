@@ -572,8 +572,8 @@
     <Content Include="css\Register.css" />
     <Content Include="css\tooplate-style.css" />
     <Content Include="empty_page\empty.css" />
+    <Content Include="Favoritos.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="images\abrir_texto.png" />
     <Content Include="images\biblioteca.jpg" />
     <Content Include="images\Bizarro.jpeg" />
     <Content Include="images\certo.png" />
@@ -586,6 +586,7 @@
     <Content Include="images\female.png" />
     <Content Include="images\icon, olho.png" />
     <Content Include="images\icon_pessoa.png" />
+    <Content Include="images\literature_25px.png" />
     <Content Include="images\livro.jpg" />
     <Content Include="images\logo %282%29.png" />
     <Content Include="images\logo icon.png" />
@@ -623,6 +624,13 @@
     </Compile>
     <Compile Include="ativar_conta.aspx.designer.cs">
       <DependentUpon>ativar_conta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Favoritos.aspx.cs">
+      <DependentUpon>Favoritos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Favoritos.aspx.designer.cs">
+      <DependentUpon>Favoritos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

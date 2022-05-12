@@ -365,7 +365,7 @@
     <div class="card__footer">
       <div class="user">
         
-          <asp:ImageButton ID="btn_editar" ImageUrl="images/editar.png"  runat="server" width="20" height="20" /><asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" />
+         <asp:ImageButton ID="btn_editar" ImageUrl="images/editar.png"  runat="server" width="20" height="20" /><asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" />
         
 
         <div class="user__info">

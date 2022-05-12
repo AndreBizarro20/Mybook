@@ -135,7 +135,18 @@ namespace Mybook
                 byte[] binaryData = (byte[])dr["binarios"];
                 string image_string = Convert.ToBase64String(binaryData);
                 ((Image)e.Item.FindControl("img_texto")).ImageUrl = String.Format($"data:image/.jpg;base64,{image_string}");
-                ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument = dr["id_pessoa"].ToString();;
+                ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument = dr["id_pessoa"].ToString();
+                ((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument = dr["id_texto"].ToString();
+
+
+                if (Session["email"] == null)
+                {
+                    ((ImageButton)e.Item.FindControl("btn_favorito")).Visible = false;
+                    ((ImageButton)e.Item.FindControl("btn_favorito")).Enabled = false;
+                    ((ImageButton)e.Item.FindControl("btn_favorito")).Visible = false;
+                    ((ImageButton)e.Item.FindControl("btn_favorito")).Enabled = false;
+                    ((ImageButton)e.Item.FindControl("btn_favorito")).Attributes.Add("style", "display: none");
+                }
 
             }
         }
@@ -147,6 +158,45 @@ namespace Mybook
                 Session["ver_perfil"] = ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument;
                 
                 Response.Redirect("Ver_perfil.aspx");
+            }
+            lbl_info.Visible = true;
+            if (e.CommandName == "btn_favorito")
+            {
+                SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
+
+                SqlCommand myCommand = new SqlCommand();
+
+                myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
+                myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument));
+
+                SqlParameter retorno = new SqlParameter();
+                retorno.ParameterName = "@retorno";
+                retorno.Direction = ParameterDirection.Output;
+                retorno.SqlDbType = SqlDbType.Int;
+                myCommand.Parameters.Add(retorno);
+
+                myCommand.CommandType = CommandType.StoredProcedure;
+                myCommand.CommandText = "favorito";
+
+                myCommand.Connection = myConn;
+                myConn.Open();
+                myCommand.ExecuteNonQuery();
+
+                int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
+                myConn.Close();
+
+                if (respostaRetorno == 1)
+                {
+                    lbl_info.Attributes.Add("class", "alert alert-success");
+                    lbl_info.Text = $"Adicionado aos favoritos";
+                }
+                else
+                {
+                    lbl_info.Attributes.Add("class", "alert alert-danger");
+                    lbl_info.Text = $"Este texto já se encontra nos favoritos";
+                }
+
+
             }
         }
     }

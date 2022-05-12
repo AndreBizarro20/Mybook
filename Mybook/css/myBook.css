@@ -25,14 +25,14 @@ img {
 .card {
     display: block;
     flex-direction: column;
-    width: 250px;
+    width: 400px;
     overflow: hidden;
     box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
     border-radius: 1em;
     background: #ECE9E6;
     background: linear-gradient(to right, #FFFFFF, #ECE9E6);
     height: 600px;
-    max-width: 200px; 
+    max-width: 250px; 
     max-height:500px;
     display: inline-block;
 }

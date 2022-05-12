@@ -69,6 +69,7 @@
                         <li></li>
                         <li><a href="My_book.aspx" class="smoothScroll">My Book</a></li>
                          <li><a href="#" class="smoothScroll">Your Book</a></li>
+                        <li id="favorito" runat="server"><a href="Favoritos.aspx"><asp:Label ID="lbl_favorito" class="smoothScroll" runat="server"></asp:Label>Favoritos</a></></li>
                          <li><a href="#about" class="smoothScroll">Sobre Mim</a></li>
                                                <li id="nome_perfil" runat="server"><a href="Perfil.aspx"><asp:Label ID="lbl_nome" class="nome_perfil" runat="server"></asp:Label></a></></li>
                          <li style="margin:5px;">
