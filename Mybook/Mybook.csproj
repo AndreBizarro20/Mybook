@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="adicionar_texto.aspx" />
+    <Content Include="AlterarPW.aspx" />
     <Content Include="assets\css\animate.min.css" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\font-awesome.min.css" />
@@ -564,7 +565,7 @@
     <Content Include="css\animate.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.min.css" />
-    <Content Include="css\adicionar_texto.css" />
+    <Content Include="css\ler_texto.css" />
     <Content Include="css\home.css" />
     <Content Include="css\owl.carousel.css" />
     <Content Include="css\owl.theme.default.min.css" />
@@ -586,6 +587,7 @@
     <Content Include="images\female.png" />
     <Content Include="images\icon, olho.png" />
     <Content Include="images\icon_pessoa.png" />
+    <Content Include="images\icon_video.png" />
     <Content Include="images\literature_25px.png" />
     <Content Include="images\livro.jpg" />
     <Content Include="images\logo %282%29.png" />
@@ -603,6 +605,7 @@
     <Content Include="js\owl.carousel.min.js" />
     <Content Include="js\smoothscroll.js" />
     <Content Include="js\wow.min.js" />
+    <Content Include="ler_texto.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="My_book.aspx" />
     <Content Include="Perfil.aspx" />
@@ -617,6 +620,13 @@
     </Compile>
     <Compile Include="adicionar_texto.aspx.designer.cs">
       <DependentUpon>adicionar_texto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AlterarPW.aspx.cs">
+      <DependentUpon>AlterarPW.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AlterarPW.aspx.designer.cs">
+      <DependentUpon>AlterarPW.aspx</DependentUpon>
     </Compile>
     <Compile Include="ativar_conta.aspx.cs">
       <DependentUpon>ativar_conta.aspx</DependentUpon>
@@ -638,6 +648,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ler_texto.aspx.cs">
+      <DependentUpon>ler_texto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ler_texto.aspx.designer.cs">
+      <DependentUpon>ler_texto.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

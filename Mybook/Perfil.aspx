@@ -103,7 +103,7 @@
         
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><asp:Image ID="img_peca" runat="server" class="rounded-circle mt-5" width="150px"/><br /><span class="font-weight-bold"><asp:Label ID="txt_utilizador" runat="server" ></asp:Label></span><span class="text-black-50"></span><span> </span>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><asp:Image ID="img_peca" runat="server" class="rounded-circle mt-5" width="150px"/><br /><span style="padding-right:40%" class="font-weight-bold"><asp:Label ID="txt_utilizador" runat="server" ></asp:Label></span><span class="text-black-50"></span><span> </span>
 
             </div>
         </div>
@@ -200,7 +200,7 @@
  <!--==label de informação ==-->
                     <br /><br />
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
- <asp:Label ID="lbl_info" runat="server"  class="" role="alert" Text="" Visible="False"></asp:Label>  
+ <asp:Label ID="lbl_info" runat="server"  class="" role="alert" Text="" Visible="False"></asp:Label>
     
                     </div>
             </div>
@@ -257,10 +257,14 @@
                     <label for="message-text" class="col-form-label">Resumo</label>
                       <asp:TextBox ID="txt_resumo" class="form-control" runat="server" MaxLength="200" TextMode="MultiLine" Rows="5" style = "resize:none"></asp:TextBox>
                     </div>
+                      <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Link do video</label>
+                      <asp:TextBox ID="txt_link" class="form-control" runat="server" ></asp:TextBox>
+                    </div>
                      <div class="mb-3">
                     <label for="message-text" class="col-form-label">Texto</label>
                          <script src="ckeditor/ckeditor.js"></script>
-                      <asp:TextBox ID="txt_texto" class="form-control" runat="server" TextMode="MultiLine" Rows="10" style = "resize:none"></asp:TextBox>
+                      <asp:TextBox ID="txt_texto" class="form-control" runat="server" TextMode="MultiLine" Rows="10" style = "resize:none" MaxLength="1600"></asp:TextBox>
                          <script>
                                             CKEDITOR.replace('<%=txt_texto.ClientID%>',
                                                 {
@@ -295,16 +299,22 @@
                     <div class="clearfix">
 
                     </div>
-                   <div><p>O Mybook é uma página referenciada aos textos que o criador do website foi desenvolvendo ao longo do tempo, para que, deste modo, possam servir de inspiração para todos os que lêem.
-                            Nesta página conseguem retirar várias ideias, cativando a escrever sobre o que mais fizer sentido.
+                   <div><p>Estes são os textos que escreves-te ao longo do tempo. Aqui podes editar ou apagar.
                         </p></div>
                    <br />
+                           <div>
+                                 <asp:Label ID="lbl_atualizar_texto" runat="server" role="alert" Text="" Visible="False"></asp:Label>  
+                           </div>
+
+                                               <div>
+                                 <asp:Label ID="Label1" runat="server" role="alert" Text="" Visible="False"></asp:Label>  
+                           </div>
                    <asp:Label ID="lbl_mensagem" runat="server"  class="" role="alert" Text="" Visible="False"></asp:Label>  
 
 
                        <asp:SqlDataSource ID="SqlDataSourceGenero" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT * FROM [tab_generos_livro]"></asp:SqlDataSource>
 
-         <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSourceTextos" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
+         <asp:Repeater ID="Repeater1" DataSourceID="SqlDataSourceTextos" runat="server" OnItemDataBound="Repeater1_ItemDataBound" OnItemCommand="Repeater1_ItemCommand">
                        <HeaderTemplate>
                            <section id="team" data-stellar-background-ratio="1">
 
@@ -312,6 +322,7 @@
                <div class="row">
                        </HeaderTemplate>
                        <ItemTemplate>
+                           
                                      <div class="col-md-4 col-sm-6">
   <div class="card">
     <div class="card__header">
@@ -329,7 +340,8 @@
       <br />
     <div class="card__footer">
       <div class="user">
-         <asp:ImageButton ID="btn_editar" ImageUrl="images/editar.png"  runat="server" width="20" height="20" /><asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" />
+         <asp:ImageButton ID="btn_editar"  ImageUrl="images/editar.png"  runat="server" width="20" height="20" CommandName="btn_editar" />
+          <asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" CommandName="btn_apagar" />
 
         <div class="user__info">
           <small>
@@ -347,6 +359,7 @@
 
 
                        <AlternatingItemTemplate>
+                           
                              <div class="col-md-4 col-sm-6">
   <div class="card">
     <div class="card__header">
@@ -364,8 +377,8 @@
       <br />
     <div class="card__footer">
       <div class="user">
-        
-         <asp:ImageButton ID="btn_editar" ImageUrl="images/editar.png"  runat="server" width="20" height="20" /><asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" />
+        <asp:ImageButton ID="btn_editar"  ImageUrl="images/editar.png"  runat="server" width="20" height="20" CommandName="btn_editar" />
+          <asp:ImageButton ID="btn_apagar" ImageUrl="images/eliminar.png" runat="server" width="20" height="20" CommandName="btn_apagar" />
         
 
         <div class="user__info">
@@ -378,7 +391,7 @@
   </div>
                        </div>
                           
-                          
+                         
                        </AlternatingItemTemplate>
 
 
@@ -395,16 +408,84 @@
             </SelectParameters>
         </asp:SqlDataSource>
 
-
+                   
             </div>
           </div>
-
 
      </section> 
     
 
+        <asp:Repeater ID="RepeaterModalEditar" DataSourceID="SqlDataSourceModalEditar" runat="server" OnItemDataBound="RepeaterModalEditar_ItemDataBound" OnItemCommand="RepeaterModalEditar_ItemCommand">
+            <HeaderTemplate>
+                  <!-- The Modal -->
+                    <div class="modal" id="myModal2">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+      
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                    <h3>Editar Texto</h3>
+                    </div>   
+            </HeaderTemplate>
+            <ItemTemplate>
 
-    <!--== Start Responsive Menu Wrapper ==-->
+                             
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    <div>
+                         <div class="mb-3">
+                    <label for="message-genero" class="col-form-label">Género</label><br />
+                         <asp:DropDownList ID="dpr_genero" runat="server" DataSourceID="SqlDataSourceGenero" DataTextField="generos_livro" DataValueField="id_generos_livro"></asp:DropDownList>
+                    </div>
+                        <br />
+                    <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Titulo</label>
+
+                      <asp:TextBox ID="txt_titulo2" class="form-control" runat="server" ></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Resumo</label>
+                      <asp:TextBox ID="txt_resumo2" class="form-control" runat="server" MaxLength="200" TextMode="MultiLine" Rows="5" style = "resize:none"></asp:TextBox>
+                    </div>
+                     <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Texto</label>
+                         <script src="ckeditor/ckeditor.js"></script>
+                         <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+                      <asp:TextBox ID="txt_texto2" class="form-control" runat="server" TextMode="MultiLine" Rows="10" style = "resize:none"></asp:TextBox>
+                         <script>
+                             CKEDITOR.replace('<%=txt_texto.ClientID%>',
+                                 {
+                                     customConfig: 'ckeditor/custom/editor_config.js'
+                                 }
+                             ); //tem que se por ValidateRequest="false" la em cima
+
+                         </script>
+                    </div>
+                    
+                    </div>
+                    </div>
+                    <br />
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                    <asp:Button ID="btn_EditarTexto" class="btn btn-bordered" runat="server" Text="Editar" CommandName="btn_EditarTexto"  />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    </div>
+
+            </ItemTemplate>
+            <FooterTemplate>
+                 </div>
+                    </div>
+                    </div>
+            </FooterTemplate>
+        </asp:Repeater>
+
+        <asp:SqlDataSource ID="SqlDataSourceModalEditar" runat="server" ConnectionString="<%$ ConnectionStrings:Mybook %>" SelectCommand="SELECT id_texto, id_generos_livro, titulo, resumo, texto FROM tab_texto WHERE  (id_texto = @id_passar)">
+            <SelectParameters>
+                <asp:SessionParameter Name="id_passar" SessionField="id_passar" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
+
     <aside class="off-canvas-wrapper off-canvas-menu">
         <div class="off-canvas-overlay"></div>
         <div class="off-canvas-inner">
@@ -420,11 +501,12 @@
    </div>
 
 
- 
-    
-    
 
-
+     <script type='text/javascript'>
+         function openModal() {
+             $('#myModal2').modal('show');
+         }
+     </script>
 
    
 </asp:Content>

@@ -82,7 +82,15 @@ namespace Mybook
                     Session["nome"] = resposta;
                     Session["id_pessoa"] = respostapessoa;
                     // Session["id_genero"] = respostagenero;
-                    Response.Redirect("Index.aspx");
+                    if(Session["pagina_guardada"] == "")
+                    {
+                        Response.Redirect("Index.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect($"{Session["pagina_guardada"]}");
+                    }
+                    
                 }
                 else if (respostaRetorno == 2)
                 {
@@ -197,5 +205,6 @@ namespace Mybook
             smtp.Send(mail);
 
         }
+
     }
 }

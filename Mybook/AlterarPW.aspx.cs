@@ -7,32 +7,33 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Mybook
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class AlterarPWaspx : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            lbl_mensagem.Visible = false;
+            lbl_info.Visible = false;
         }
 
-        protected void btn_entrar_Click(object sender, EventArgs e)
+        protected void btn_login_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
+
+        protected void btn_alterar_Click(object sender, EventArgs e)
         {
             SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
 
             SqlCommand myCommand = new SqlCommand();
 
-            myCommand.Parameters.AddWithValue("@utilizador", tb_name.Text);
             myCommand.Parameters.AddWithValue("@email", tb_email.Text);
-            myCommand.Parameters.AddWithValue("@pw",EncryptString (tb_password.Text));
-            myCommand.Parameters.AddWithValue("@apelido", tb_apelido.Text);
-            myCommand.Parameters.AddWithValue("@genero", RadioButtonList1.SelectedValue);
-            myCommand.Parameters.AddWithValue("@cidade", DropDownList1.SelectedValue);
-
+            myCommand.Parameters.AddWithValue("@pass", EncryptString(pw));
 
             SqlParameter retorno = new SqlParameter();
             retorno.ParameterName = "@retorno";
@@ -40,36 +41,58 @@ namespace Mybook
             retorno.SqlDbType = SqlDbType.Int;
             myCommand.Parameters.Add(retorno);
 
+
+
+
             myCommand.CommandType = CommandType.StoredProcedure;
-            myCommand.CommandText = "Register";
+            myCommand.CommandText = "recuperar_pw";
 
             myCommand.Connection = myConn;
             myConn.Open();
             myCommand.ExecuteNonQuery();
             int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-            myConn.Close();
-            lbl_mensagem.Visible = true;
 
+
+
+            myConn.Close();
+
+            lbl_info.Visible = true;
             if (respostaRetorno == 1)
             {
-                lbl_mensagem.Text = "Conta criada com sucesso, por favor verefique o seu email para ativar a sua conta";
-
-                enviaMail(tb_email.Text);
+                
+                lbl_info.Attributes.Add("class", "alert alert-success");
+                lbl_info.Text = "A NOVA PALAVRA-PASSE FOI ENVIADA PARA O SEU EMAIL";
+                enviaMail();
             }
-            else
+            else if (respostaRetorno == 2)
             {
+                
+                lbl_info.Attributes.Add("class", "alert alert-danger");
+                lbl_info.Text = "CONTA NÃO EXISTE ";
 
-                lbl_mensagem.Text = "Este email já está registado";
-                tb_email.Text = "";
-                tb_email.Focus();
             }
-            
+        }
 
-        }
-        protected void btn_voltar_Click(object sender, EventArgs e)
+        private void enviaMail()
         {
-            Response.Redirect("Login.aspx");
+            MailMessage mail = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+
+            mail.From = new MailAddress("geral@mybook.com");
+            mail.To.Add(new MailAddress(tb_email.Text));
+            mail.Subject = "Ativacao";
+            mail.IsBodyHtml = true;
+
+            mail.Body = $"A sua nova pw é a {pw}";
+
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");
+
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
         }
+
         public static string EncryptString(string Message)
         {
             string Passphrase = "MyBook";
@@ -131,28 +154,18 @@ namespace Mybook
             enc = enc.Replace("\\", "IiIiI");
             return enc;
         }
-
-        private void enviaMail(string email_destinatario)
+        public static string GerarPW(int length)
         {
-
-
-            MailMessage mail = new MailMessage();
-            SmtpClient smtp = new SmtpClient();
-
-            mail.From = new MailAddress("geral@mybook.com");
-            mail.To.Add(new MailAddress(email_destinatario));
-            mail.Subject = "Ativação de conta!";
-            mail.IsBodyHtml = true;
-           
-
-            mail.Body = "<center><br/><br/><img src='https://localhost:44390/images/logo%20icon.png'/><br/><hr/><h1> Olá </h1><br/><hr/><br/>Obrigado por inscrever-se no nosso site! Nós queremos verificar se você é realmente <b>" + tb_email.Text + " </b><br/><br/><br/>Por favor, clique neste botão para completar seu registro.<br/><br/><hr/><a href = 'https://localhost:44390/ativar_conta.aspx?email=" + EncryptString(tb_email.Text) + "'><h3>Ativar!</h3></a><hr/></center>";
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.Credentials = new NetworkCredential("Testesbizarro@gmail.com", "ABC123abc");
-
-            smtp.EnableSsl = true;
-            smtp.Send(mail);
-
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
         }
+
+        public static string pw = GerarPW(5);
     }
 }

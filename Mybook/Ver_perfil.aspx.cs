@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -15,7 +11,7 @@ namespace Mybook
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["pagina_guardada"] = "Ver_perfil.aspx";
         }
 
         protected void RepeaterPerfil_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -45,8 +41,6 @@ namespace Mybook
                 {
                     ((Image)e.Item.FindControl("img_peca")).ImageUrl = "images/outro.jpeg";
                 }
-
-
 
 
 
@@ -101,7 +95,17 @@ namespace Mybook
                 string image_string = Convert.ToBase64String(binaryData);
                 ((Image)e.Item.FindControl("img_texto")).ImageUrl = String.Format($"data:image/.jpg;base64,{image_string}");
                 ((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument = dr["id_texto"].ToString();
+                ((ImageButton)e.Item.FindControl("btn_texto")).CommandArgument = dr["id_texto"].ToString();
 
+
+
+                ((ImageButton)e.Item.FindControl("btn_video")).CommandArgument = dr["link_video"].ToString();
+
+                if (dr["link_video"].ToString() == "")
+                {
+                    ((ImageButton)e.Item.FindControl("btn_video")).Visible = false;
+
+                }
 
 
                 if (Session["email"] == null)
@@ -115,43 +119,56 @@ namespace Mybook
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             lbl_info.Visible = true;
-            if (e.CommandName == "btn_favorito")
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
 
-                SqlCommand myCommand = new SqlCommand();
-
-                myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
-                myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument));
-
-                SqlParameter retorno = new SqlParameter();
-                retorno.ParameterName = "@retorno";
-                retorno.Direction = ParameterDirection.Output;
-                retorno.SqlDbType = SqlDbType.Int;
-                myCommand.Parameters.Add(retorno);
-
-                myCommand.CommandType = CommandType.StoredProcedure;
-                myCommand.CommandText = "favorito";
-
-                myCommand.Connection = myConn;
-                myConn.Open();
-                myCommand.ExecuteNonQuery();
-
-                int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-                myConn.Close();
-
-                if (respostaRetorno == 1)
+                if (e.CommandName == "btn_video")
                 {
-                    lbl_info.Attributes.Add("class", "alert alert-success");
-                    lbl_info.Text = $"Adicionado aos favoritos";
+                    Response.Redirect($"{e.CommandArgument}");
                 }
-                else
+                if (e.CommandName == "btn_texto")
                 {
-                    lbl_info.Attributes.Add("class", "alert alert-danger");
-                    lbl_info.Text = $"Este texto já se encontra nos favoritos";
+                    Response.Redirect("ler_texto.aspx?id_texto=" + e.CommandArgument);
                 }
 
-            }
+                if (e.CommandName == "btn_favorito")
+                {
+                    SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
+
+                    SqlCommand myCommand = new SqlCommand();
+
+                    myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
+                    myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument));
+
+                    SqlParameter retorno = new SqlParameter();
+                    retorno.ParameterName = "@retorno";
+                    retorno.Direction = ParameterDirection.Output;
+                    retorno.SqlDbType = SqlDbType.Int;
+                    myCommand.Parameters.Add(retorno);
+
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandText = "favorito";
+
+                    myCommand.Connection = myConn;
+                    myConn.Open();
+                    myCommand.ExecuteNonQuery();
+
+                    int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
+                    myConn.Close();
+
+                    if (respostaRetorno == 1)
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-success");
+                        lbl_info.Text = $"Adicionado aos favoritos";
+                    }
+                    else
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-danger");
+                        lbl_info.Text = $"Este texto já se encontra nos favoritos";
+                    }
+
+                }
             }
         }
+    }
 }

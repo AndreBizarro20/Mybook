@@ -72,7 +72,7 @@
     <div class="card__footer">
         
       <div class="user">
-                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_black_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/></h5>
+                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_black_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px" CommandName="btn_texto"/></h5>
        </div>       
          </div>
         <div class="card__footer">
@@ -108,7 +108,7 @@
     <div class="card__footer">
         
       <div class="user">
-                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_black_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/></h5>
+                  <asp:ImageButton ID="btn_verPerfil" ImageUrl="images/icon_pessoa.png" commandName="btn_verPerfil" runat="server" width="20" height="20" alt="user__image" class="user__image" /><asp:Label ID="lbl_autor" runat="server" Text=""></asp:Label><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_black_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" /><asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px" CommandName="btn_texto"/></h5>
        </div>       
          </div>
         <div class="card__footer">

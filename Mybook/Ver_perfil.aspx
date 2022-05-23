@@ -116,7 +116,7 @@
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-center">Perfil <asp:Label ID="lbl_perfil" runat="server" Text=""></asp:Label></h4>
+                    <h4 class="text-center">Informações do perfil <asp:Label ID="lbl_perfil" runat="server" Text=""></asp:Label></h4>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6"><label class="labels">Nome</label>
@@ -205,7 +205,9 @@
       <br />
     <div class="card__footer">
       <div class="user">
-            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
+            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px" CommandName="btn_texto"/>
+          <asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
+          <asp:ImageButton ID="btn_video" ImageUrl="images/icon_video.png" commandName="btn_video" runat="server" width="20" height="20" alt="user__image" class="user__image" />
 
         <div class="user__info">
           <small>
@@ -222,7 +224,7 @@
 
 
                        <AlternatingItemTemplate>
-                             <div class="col-md-4 col-sm-6">
+                                                    <div class="col-md-4 col-sm-6">
   <div class="card">
     <div class="card__header">
         <asp:Image ID="img_texto" runat="server" alt="card__image" class="card__image" width="300"  Height="100"/>
@@ -239,7 +241,9 @@
       <br />
     <div class="card__footer">
       <div class="user">
-            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px"/><asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
+            <asp:ImageButton ID="btn_texto" runat="server" ImageUrl="images/literature_25px.png" Width="17px" Height="17px" CommandName="btn_texto"/>
+          <asp:ImageButton ID="btn_favorito" ImageUrl="images/Favorite_25px.png" runat="server" Width="20px" Height="20px" CommandName="btn_favorito" />
+          <asp:ImageButton ID="btn_video" ImageUrl="images/icon_video.png" commandName="btn_video" runat="server" width="20" height="20" alt="user__image" class="user__image" />
 
         <div class="user__info">
           <small>
@@ -250,8 +254,7 @@
     </div>
   </div>
                        </div>
-                          
-                          
+                        
                        </AlternatingItemTemplate>
 
 
@@ -262,7 +265,7 @@
                        </FooterTemplate>
                    </asp:Repeater>
 
-                   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT tab_texto.id_texto, tab_texto.id_pessoa, tab_pessoa.nome, tab_texto.titulo, tab_texto.resumo, tab_generos_livro.generos_livro, tab_texto.binarios, tab_texto.data FROM     tab_generos_livro INNER JOIN tab_texto ON tab_generos_livro.id_generos_livro = tab_texto.id_generos_livro INNER JOIN tab_pessoa ON tab_texto.id_pessoa = tab_pessoa.id_pessoa where tab_texto.id_pessoa=@ver_perfil">
+                   <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT tab_texto.id_texto, tab_texto.id_pessoa, tab_pessoa.nome, tab_texto.titulo,tab_texto.link_video, tab_texto.resumo, tab_generos_livro.generos_livro, tab_texto.binarios, tab_texto.data FROM     tab_generos_livro INNER JOIN tab_texto ON tab_generos_livro.id_generos_livro = tab_texto.id_generos_livro INNER JOIN tab_pessoa ON tab_texto.id_pessoa = tab_pessoa.id_pessoa where tab_texto.id_pessoa=@ver_perfil">
                        <SelectParameters>
                            <asp:SessionParameter Name="ver_perfil" SessionField="ver_perfil" />
                        </SelectParameters>

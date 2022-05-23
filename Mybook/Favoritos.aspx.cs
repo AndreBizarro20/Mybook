@@ -69,6 +69,8 @@ namespace Mybook
                 ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument = dr["id_pessoa"].ToString();
                 ((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument = dr["id_texto"].ToString();
                 ((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument = dr["id_favorito"].ToString();
+                ((ImageButton)e.Item.FindControl("btn_texto")).CommandArgument = dr["id_texto"].ToString();
+
 
 
                 if (Session["email"] == null)
@@ -90,6 +92,10 @@ namespace Mybook
                 Session["ver_perfil"] = ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument;
 
                 Response.Redirect("Ver_perfil.aspx");
+            }
+            if (e.CommandName == "btn_texto")
+            {
+                Response.Redirect("ler_texto.aspx?id_texto=" + e.CommandArgument);
             }
             lbl_info.Visible = true;
             if (e.CommandName == "btn_favorito")

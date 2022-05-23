@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,6 +12,7 @@ namespace Mybook
 {
     public partial class Perfil : System.Web.UI.Page
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["email"] == null)
@@ -85,8 +87,9 @@ namespace Mybook
         {
             if (e.CommandName == "btn_update")
             {
-                ((Label)e.Item.FindControl("lbl_info")).Text = null;
-                ((Label)e.Item.FindControl("lbl_info")).Visible = false;
+                //((Label)e.Item.FindControl("lbl_info")).Text = "";
+               // ((Label)e.Item.FindControl("lbl_info")).Visible = false;
+
                 try
                 {
                     SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
@@ -109,8 +112,10 @@ namespace Mybook
 
                     myConn.Close();
 
-                    lbl_info.Visible = true;
-                    lbl_info.Text = "Perfil alterado com sucesso!";
+                   lbl_info.Visible = true;
+                    lbl_info.Attributes.Add("class", "alert alert-success");
+                    lbl_info.Text = $"Perfil alterado com sucesso!";
+                    RepeaterPerfil.DataBind();
 
                 }
                 catch (Exception)
@@ -312,7 +317,9 @@ namespace Mybook
                 byte[] binaryData = (byte[])dr["binarios"];
                 string image_string = Convert.ToBase64String(binaryData);
                 ((Image)e.Item.FindControl("img_texto")).ImageUrl = String.Format($"data:image/.jpg;base64,{image_string}");
+                ((ImageButton)e.Item.FindControl("btn_apagar")).CommandArgument = dr["id_texto"].ToString();
 
+                ((ImageButton)e.Item.FindControl("btn_editar")).CommandArgument = dr["id_texto"].ToString();
             }
         }
 
@@ -374,5 +381,133 @@ namespace Mybook
                 lbl_mensagem.Text = "O texto já está insirido no sistema.";
             }
         }
+
+        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            lbl_info.Visible = true;
+            if (e.CommandName == "btn_apagar")
+            {
+                SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
+
+                SqlCommand myCommand = new SqlCommand();
+
+                myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_apagar")).CommandArgument));
+
+                SqlParameter retorno = new SqlParameter();
+                retorno.ParameterName = "@retorno";
+                retorno.Direction = ParameterDirection.Output;
+                retorno.SqlDbType = SqlDbType.Int;
+                myCommand.Parameters.Add(retorno);
+
+                myCommand.CommandType = CommandType.StoredProcedure;
+                myCommand.CommandText = "eliminar_texto";
+
+                myCommand.Connection = myConn;
+                myConn.Open();
+                myCommand.ExecuteNonQuery();
+
+                int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
+                myConn.Close();
+
+                if (respostaRetorno == 1)
+                {
+                    lbl_info.Attributes.Add("class", "alert alert-success");
+                    lbl_info.Text = $"Removido com sucesso";
+                }
+
+                Repeater1.DataBind();
+            }
+            if (e.CommandName == "btn_editar")
+            {
+                //DataRowView dr = (DataRowView)e.Item.DataItem;
+                //((TextBox)e.Item.FindControl("txt_titulo")).Text = "OLA";
+                Session["id_passar"] = e.CommandArgument;
+                RepeaterModalEditar.DataBind();
+
+                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
+            }
+        }
+
+        protected void RepeaterModalEditar_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item)
+            {
+                DataRowView dr = (DataRowView)e.Item.DataItem;
+
+                ((DropDownList)e.Item.FindControl("dpr_genero")).SelectedValue = dr["id_generos_livro"].ToString();
+                ((TextBox)e.Item.FindControl("txt_titulo2")).Text = dr["titulo"].ToString();
+                ((TextBox)e.Item.FindControl("txt_resumo2")).Text = dr["resumo"].ToString();
+                ((TextBox)e.Item.FindControl("txt_texto2")).Text = dr["texto"].ToString();
+                ((Literal)e.Item.FindControl("literal1")).Text = dr["texto"].ToString();
+                
+                ((Button)e.Item.FindControl("btn_EditarTexto")).CommandArgument = dr["id_texto"].ToString();
+
+
+            }
+                
+        }
+
+        protected void RepeaterModalEditar_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "btn_EditarTexto")
+            {
+     
+
+                    SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+
+                    SqlCommand myCommand = new SqlCommand();
+
+                /*Stream imgStream = FileUpload1.PostedFile.InputStream;
+
+                int tamanho_array = FileUpload1.PostedFile.ContentLength;
+
+                byte[] imgBinaryData = new byte[tamanho_array];
+
+                imgStream.Read(imgBinaryData, 0, tamanho_array);*/
+
+                    myCommand.Parameters.AddWithValue("@id_texto", e.CommandArgument);
+                    myCommand.Parameters.AddWithValue("@titulo", ((TextBox)e.Item.FindControl("txt_titulo2")).Text);
+                    myCommand.Parameters.AddWithValue("@resumo", ((TextBox)e.Item.FindControl("txt_resumo2")).Text);
+                    myCommand.Parameters.AddWithValue("@texto", ((TextBox)e.Item.FindControl("txt_texto2")).Text);
+                    myCommand.Parameters.AddWithValue("@id_generos_livro", ((DropDownList)e.Item.FindControl("dpr_genero")).SelectedValue);
+
+
+                    /*
+                    if( FileUpload1.HasFile == true)
+                    {
+                        myCommand.Parameters.AddWithValue("@binarios", imgBinaryData);
+                    }
+                    else
+                    {
+                        
+                        myCommand.Parameters.AddWithValue("@binarios", imgBinaryData);
+                       
+                    }  */
+
+                    SqlParameter retorno = new SqlParameter();
+                    retorno.ParameterName = "@retorno";
+                    retorno.Direction = ParameterDirection.Output;
+                    retorno.SqlDbType = SqlDbType.Int;
+                    myCommand.Parameters.Add(retorno);
+
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandText = "atualizar_texto";
+
+                    myCommand.Connection = myConn;
+                    myConn.Open();
+                    myCommand.ExecuteNonQuery();
+
+                    myConn.Close();
+
+                    lbl_atualizar_texto.Visible = true;
+                    lbl_atualizar_texto.Attributes.Add("class", "alert alert-success");
+                    lbl_atualizar_texto.Text = $"Texto alterado com sucesso!";
+                    RepeaterModalEditar.DataBind();
+                    Repeater1.DataBind();
+
+
+            }
+        }
+        
     }
 }

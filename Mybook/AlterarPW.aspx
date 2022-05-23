@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Mybook.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AlterarPW.aspx.cs" Inherits="Mybook.AlterarPWaspx" %>
 
 <!DOCTYPE html>
 
@@ -6,19 +6,12 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/Login.css"/>
-    <style>
-        #EsqueceuPW
-        {
-          font-size:14px;
-          color:orangered;
-        }
-    </style>
-
 </head>
 <body>
     <form id="form1" runat="server">
+      
         <div id="login-box">
                      <section class="preloader">
           <div class="spinner">
@@ -28,19 +21,17 @@
           </div>
                     </section>
   <div class="left">
-    <h1>Inicio de Sessão</h1>
+    <h1>Recuperação de palavra-passe</h1>
       <br />
 
       <asp:TextBox ID="tb_email" placeholder="E-mail" runat="server"></asp:TextBox>
-      <asp:TextBox ID="tb_password" placeholder="Palavra-Passe" runat="server" TextMode="Password"></asp:TextBox>
+     
       <br />
       
-      <a style="font-size:14px;color:orangered;" href="AlterarPW.aspx">Esqueceu a sua palavra-passe?</a>
-
-      <asp:Button ID="btn_entrar" runat="server" Text="Entrar" OnClick="btn_entrar_Click" />
-
       
-     
+
+      <asp:Button ID="btn_alterar" runat="server" Text="Alterar" OnClick="btn_alterar_Click" />
+
       
   </div>
   <div class="right">
@@ -51,7 +42,7 @@
           </a>
       </div>
 
-      <asp:Button ID="btn_register" runat="server" CausesValidation="false" Text="Criar conta" OnClick="btn_register_Click" />
+      <asp:Button ID="btn_login" runat="server" CausesValidation="false" Text="Login" OnClick="btn_login_Click"/>
   </div>
           
   <div class="or">OU</div>
@@ -59,8 +50,6 @@
         <div style="padding-left:45%">
             <asp:Label ID="lbl_info" runat="server" role="alert" Text="" Visible="False"></asp:Label>  
         </div>
-
-
     </form>
 </body>
 </html>

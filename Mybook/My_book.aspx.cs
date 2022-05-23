@@ -10,10 +10,11 @@ namespace Mybook
 {
     public partial class My_book : System.Web.UI.Page
     {
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Session["pagina_guardada"] = "My_book.aspx";
             if (Session["email"] != null)
             {
 
@@ -23,7 +24,7 @@ namespace Mybook
 
                 }
             }
-          
+
 
         }
 
@@ -47,8 +48,9 @@ namespace Mybook
             myCommand.Parameters.AddWithValue("@titulo", txt_titulo.Text);
             myCommand.Parameters.AddWithValue("@resumo", txt_resumo.Text);
             myCommand.Parameters.AddWithValue("@texto", txt_texto.Text);
+            myCommand.Parameters.AddWithValue("@link", txt_link.Text);
             myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
-            myCommand.Parameters.AddWithValue("@data", DateTime.Now.ToShortDateString());
+            myCommand.Parameters.AddWithValue("@data", Convert.ToDateTime(DateTime.Now.ToShortDateString()));
             myCommand.Parameters.AddWithValue("@binarios", imgBinaryData);
 
 
@@ -85,6 +87,7 @@ namespace Mybook
                 lbl_mensagem.Text = "O texto já está insirido no sistema.";
             }
 
+            Repeater1.DataBind();
         }
 
         protected void Repeater1_ItemDataBound(object sender, System.Web.UI.WebControls.RepeaterItemEventArgs e)
@@ -106,8 +109,9 @@ namespace Mybook
                 {
                     ((HtmlGenericControl)(e.Item.FindControl("id_cliente"))).Attributes["class"] = "tag tag-blue";
 
-                    
-                }else if (dr["generos_livro"].ToString() == "Romance")
+
+                }
+                else if (dr["generos_livro"].ToString() == "Romance")
                 {
                     ((HtmlGenericControl)(e.Item.FindControl("id_cliente"))).Attributes["class"] = "tag tag-red";
 
@@ -137,7 +141,14 @@ namespace Mybook
                 ((Image)e.Item.FindControl("img_texto")).ImageUrl = String.Format($"data:image/.jpg;base64,{image_string}");
                 ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument = dr["id_pessoa"].ToString();
                 ((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument = dr["id_texto"].ToString();
+                ((ImageButton)e.Item.FindControl("btn_texto")).CommandArgument = dr["id_texto"].ToString();
+                ((ImageButton)e.Item.FindControl("btn_video")).CommandArgument = dr["link_video"].ToString();
 
+                if (dr["link_video"].ToString() == "")
+                {
+                    ((ImageButton)e.Item.FindControl("btn_video")).Visible = false;
+                    
+                }
 
                 if (Session["email"] == null)
                 {
@@ -153,51 +164,69 @@ namespace Mybook
 
         protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "btn_verPerfil")
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                Session["ver_perfil"] = ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument;
-                
-                Response.Redirect("Ver_perfil.aspx");
-            }
-            lbl_info.Visible = true;
-            if (e.CommandName == "btn_favorito")
-            {
-                SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
-
-                SqlCommand myCommand = new SqlCommand();
-
-                myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
-                myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument));
-
-                SqlParameter retorno = new SqlParameter();
-                retorno.ParameterName = "@retorno";
-                retorno.Direction = ParameterDirection.Output;
-                retorno.SqlDbType = SqlDbType.Int;
-                myCommand.Parameters.Add(retorno);
-
-                myCommand.CommandType = CommandType.StoredProcedure;
-                myCommand.CommandText = "favorito";
-
-                myCommand.Connection = myConn;
-                myConn.Open();
-                myCommand.ExecuteNonQuery();
-
-                int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
-                myConn.Close();
-
-                if (respostaRetorno == 1)
+                if (e.CommandName == "btn_video")
                 {
-                    lbl_info.Attributes.Add("class", "alert alert-success");
-                    lbl_info.Text = $"Adicionado aos favoritos";
+                    Response.Redirect($"{e.CommandArgument}");
                 }
-                else
+                if (e.CommandName == "btn_texto")
                 {
-                    lbl_info.Attributes.Add("class", "alert alert-danger");
-                    lbl_info.Text = $"Este texto já se encontra nos favoritos";
+                    Response.Redirect("ler_texto.aspx?id_texto="+e.CommandArgument);
                 }
+                if (e.CommandName == "btn_verPerfil")
+                {
+                    Session["ver_perfil"] = ((ImageButton)e.Item.FindControl("btn_verPerfil")).CommandArgument;
+
+                    Response.Redirect("Ver_perfil.aspx");
+                }
+                lbl_info.Visible = true;
+                if (e.CommandName == "btn_favorito")
+                {
+                    SqlConnection myConn = new SqlConnection(ConfigurationManager.ConnectionStrings["Mybook"].ConnectionString);
+
+                    SqlCommand myCommand = new SqlCommand();
+
+                    myCommand.Parameters.AddWithValue("@id_pessoa", Convert.ToInt32(Session["id_pessoa"].ToString()));
+                    myCommand.Parameters.AddWithValue("@id_texto", Convert.ToInt32(((ImageButton)e.Item.FindControl("btn_favorito")).CommandArgument));
+
+                    SqlParameter retorno = new SqlParameter();
+                    retorno.ParameterName = "@retorno";
+                    retorno.Direction = ParameterDirection.Output;
+                    retorno.SqlDbType = SqlDbType.Int;
+                    myCommand.Parameters.Add(retorno);
+
+                    myCommand.CommandType = CommandType.StoredProcedure;
+                    myCommand.CommandText = "favorito";
+
+                    myCommand.Connection = myConn;
+                    myConn.Open();
+                    myCommand.ExecuteNonQuery();
+
+                    int respostaRetorno = Convert.ToInt32(myCommand.Parameters["@retorno"].Value);
+                    myConn.Close();
+
+                    if (respostaRetorno == 1)
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-success");
+                        lbl_info.Text = $"Adicionado aos favoritos";
+                    }
+                    else
+                    {
+                        lbl_info.Attributes.Add("class", "alert alert-danger");
+                        lbl_info.Text = $"Este texto já se encontra nos favoritos";
+                    }
 
 
+                }
             }
+        }
+
+        protected void ddl_genero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SqlDataSource2.SelectCommand = $"SELECT tab_texto.id_texto, tab_texto.id_pessoa, tab_pessoa.nome, tab_texto.titulo,tab_texto.link_video, tab_texto.resumo, tab_generos_livro.generos_livro, tab_texto.binarios, tab_texto.data FROM     tab_generos_livro INNER JOIN tab_texto ON tab_generos_livro.id_generos_livro = tab_texto.id_generos_livro INNER JOIN tab_pessoa ON tab_texto.id_pessoa = tab_pessoa.id_pessoa where tab_texto.id_pessoa='1' and tab_generos_livro.generos_livro='{ddl_genero.SelectedItem}'";
+
+            Repeater1.DataBind();
         }
     }
 }

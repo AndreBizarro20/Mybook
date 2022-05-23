@@ -53,10 +53,10 @@
 
 </div>
         <div style="margin-left:44%">
-        <asp:ValidationSummary ID="ValidationSummary1" Width="300px" class="alert alert-danger" role="alert" runat="server" ForeColor="Red"/>
+        <asp:ValidationSummary ID="ValidationSummary1" Width="300px" class="alert alert-danger" role="alert" runat="server" ForeColor="Red" />
         </div>
         <div style="margin-left:44%">
-            <asp:Label ID="lbl_mensagem" runat="server"  class="alert alert-danger" role="alert" Text="" ForeColor="Red"></asp:Label>
+            <asp:Label ID="lbl_mensagem" runat="server"  class="alert alert-danger" role="alert" Text="" ForeColor="Red" ></asp:Label>
         </div>
     </form>
 </body>

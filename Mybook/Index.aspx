@@ -8,7 +8,6 @@
     <section id="home" class="slider" data-stellar-background-ratio="0.5">
           <div class="container">
                <div class="row">
-
                          <div class="owl-carousel owl-theme">
                               <div class="item item-first">
                                    <div class="caption">
@@ -33,9 +32,9 @@
                               <div class="item item-third">
                                    <div class="caption">
                                         <div class="col-md-offset-1 col-md-10">
-                                             <h3>Alguma questão sobre o tema ou texto?</h3>
-                                             <h1>Faz-me uma pergunta</h1>
-                                             <a href="#news" class="section-btn btn btn-default btn-orange smoothScroll">Questões</a>
+                                             <h3>Sabias que podes adicionar aos favoritos?</h3>
+                                             <h1>Faz já login</h1>
+                                             <a href="Login.aspx" class="section-btn btn btn-default btn-orange smoothScroll">Login</a>
                                         </div>
                                    </div>
                               </div>
